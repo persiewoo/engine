@@ -53,7 +53,14 @@ var Transition = cc.Enum({
      * !#zh 缩放过渡
      * @property {Number} SCALE
      */
-    SCALE: 3
+    SCALE: 3,
+    /**
+     * !#en The glint type
+     * !#zh 闪动效果
+     * @property {Number} GLINT
+     */
+    GLINT: 4,
+
 });
 
 /**
@@ -80,6 +87,7 @@ var Transition = cc.Enum({
  *   -Button.Transition.COLOR  // 进行颜色之间过渡</br>
  *   -Button.Transition.SPRITE // 进行精灵之间过渡</br>
  *   -Button.Transition.SCALE // 进行缩放过渡</br>
+ *   -Button.Transition.GLINT // 触摸闪动</br>
  *
  * 按钮可以绑定事件（但是必须要在按钮的 Node 上才能绑定事件）：</br>
  *   // 以下事件可以在全平台上都触发</br>
@@ -650,7 +658,7 @@ var Button = cc.Class({
     },
 
     _updateDisabledState: function () {
-        if(this._sprite) {
+        if(this._sprite && this.transition !== Transition.GLINT) {
             this._sprite._sgNode.setState(0);
         }
         if(this.enableAutoGrayEffect && this.transition !== Transition.COLOR) {
